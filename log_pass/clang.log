@@ -1,0 +1,46 @@
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace, preprocessed source, and associated run script.
+Stack dump:
+0.	Program arguments: clang++-14 -fno-discard-value-names -flegacy-pass-manager -g -Xclang -load -Xclang ./f.so example.cpp -c
+ #0 0x00007ff716efd311 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/lib/x86_64-linux-gnu/libLLVM-14.so.1+0xe4b311)
+ #1 0x00007ff716efb05e llvm::sys::RunSignalHandlers() (/lib/x86_64-linux-gnu/libLLVM-14.so.1+0xe4905e)
+ #2 0x00007ff716efc6d0 llvm::sys::CleanupOnSignal(unsigned long) (/lib/x86_64-linux-gnu/libLLVM-14.so.1+0xe4a6d0)
+ #3 0x00007ff716e29a6f (/lib/x86_64-linux-gnu/libLLVM-14.so.1+0xd77a6f)
+ #4 0x00007ff72016e420 __restore_rt (/lib/x86_64-linux-gnu/libpthread.so.0+0x14420)
+ #5 0x00007ff716e98267 llvm::StringMapImpl::LookupBucketFor(llvm::StringRef) (/lib/x86_64-linux-gnu/libLLVM-14.so.1+0xde6267)
+ #6 0x00007ff716e22ffc (/lib/x86_64-linux-gnu/libLLVM-14.so.1+0xd70ffc)
+ #7 0x00007ff716e2327c (/lib/x86_64-linux-gnu/libLLVM-14.so.1+0xd7127c)
+ #8 0x00007ff716e16499 (/lib/x86_64-linux-gnu/libLLVM-14.so.1+0xd64499)
+ #9 0x00007ff716e14e4b llvm::cl::Option::addArgument() (/lib/x86_64-linux-gnu/libLLVM-14.so.1+0xd62e4b)
+#10 0x00007ff70e386482 __static_initialization_and_destruction_0(int, int) (.constprop.0) Main.cpp:0:0
+#11 0x00007ff7201adb9a call_init /build/glibc-SzIz7B/glibc-2.31/elf/dl-init.c:71:19
+#12 0x00007ff7201adca1 _dl_init /build/glibc-SzIz7B/glibc-2.31/elf/dl-init.c:118:9
+#13 0x00007ff715cd2985 _dl_catch_exception /build/glibc-SzIz7B/glibc-2.31/elf/dl-error-skeleton.c:184:18
+#14 0x00007ff7201b243d dl_open_worker /build/glibc-SzIz7B/glibc-2.31/elf/dl-open.c:763:5
+#15 0x00007ff715cd2928 _dl_catch_exception /build/glibc-SzIz7B/glibc-2.31/elf/dl-error-skeleton.c:209:18
+#16 0x00007ff7201b160a _dl_open /build/glibc-SzIz7B/glibc-2.31/elf/dl-open.c:837:17
+#17 0x00007ff715b1f34c dlopen_doit /build/glibc-SzIz7B/glibc-2.31/dlfcn/dlopen.c:66:13
+#18 0x00007ff715cd2928 _dl_catch_exception /build/glibc-SzIz7B/glibc-2.31/elf/dl-error-skeleton.c:209:18
+#19 0x00007ff715cd29f3 _dl_catch_error /build/glibc-SzIz7B/glibc-2.31/elf/dl-error-skeleton.c:228:12
+#20 0x00007ff715b1fb59 _dlerror_run /build/glibc-SzIz7B/glibc-2.31/dlfcn/dlerror.c:174:40
+#21 0x00007ff715b1f3da dlopen /build/glibc-SzIz7B/glibc-2.31/dlfcn/dlopen.c:87:51
+#22 0x00007ff716ee7d79 llvm::sys::DynamicLibrary::getPermanentLibrary(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*) (/lib/x86_64-linux-gnu/libLLVM-14.so.1+0xe35d79)
+#23 0x00007ff71ede609c clang::CompilerInstance::LoadRequestedPlugins() (/lib/x86_64-linux-gnu/libclang-cpp.so.14+0x247409c)
+#24 0x00007ff71ef05b3d clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/lib/x86_64-linux-gnu/libclang-cpp.so.14+0x2593b3d)
+#25 0x00000000004131b3 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/usr/lib/llvm-14/bin/clang+0x4131b3)
+#26 0x000000000041140c (/usr/lib/llvm-14/bin/clang+0x41140c)
+#27 0x00007ff71ea63f72 (/lib/x86_64-linux-gnu/libclang-cpp.so.14+0x20f1f72)
+#28 0x00007ff716e297dd llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) (/lib/x86_64-linux-gnu/libLLVM-14.so.1+0xd777dd)
+#29 0x00007ff71ea63a60 clang::driver::CC1Command::Execute(llvm::ArrayRef<llvm::Optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const (/lib/x86_64-linux-gnu/libclang-cpp.so.14+0x20f1a60)
+#30 0x00007ff71ea2e1b3 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&) const (/lib/x86_64-linux-gnu/libclang-cpp.so.14+0x20bc1b3)
+#31 0x00007ff71ea2e43a clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) const (/lib/x86_64-linux-gnu/libclang-cpp.so.14+0x20bc43a)
+#32 0x00007ff71ea48507 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) (/lib/x86_64-linux-gnu/libclang-cpp.so.14+0x20d6507)
+#33 0x0000000000410e76 main (/usr/lib/llvm-14/bin/clang+0x410e76)
+#34 0x00007ff715b96083 __libc_start_main /build/glibc-SzIz7B/glibc-2.31/csu/../csu/libc-start.c:342:3
+#35 0x000000000040e30e _start (/usr/lib/llvm-14/bin/clang+0x40e30e)
+clang: error: clang frontend command failed with exit code 139 (use -v to see invocation)
+Ubuntu clang version 14.0.6-++20220622053131+f28c006a5895-1~exp1~20220622173215.157
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/bin
+clang: error: unable to execute command: Segmentation fault (core dumped)
+clang: note: diagnostic msg: Error generating preprocessed source(s).

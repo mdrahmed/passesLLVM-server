@@ -1,0 +1,47 @@
+[
+    {
+        "arguments": [
+            "clang++-14",
+            "-c",
+            "-fno-discard-value-names",
+            "-flegacy-pass-manager",
+            "-g",
+            "-Xclang",
+            "-Xclang",
+            "function.so",
+            "-o",
+            "example.rewritten.o",
+            "example.cpp"
+        ],
+        "directory": "/home/raihan/log_pass/addIfCondition",
+        "file": "example.cpp"
+    },
+    {
+        "arguments": [
+            "clang++-14",
+            "-c",
+            "-I/usr/lib/llvm-14/include",
+            "-std=c++14",
+            "-fno-exceptions",
+            "-D_GNU_SOURCE",
+            "-D__STDC_CONSTANT_MACROS",
+            "-D__STDC_FORMAT_MACROS",
+            "-D__STDC_LIMIT_MACROS",
+            "-fno-rtti",
+            "-fpic",
+            "-O3",
+            "-funroll-loops",
+            "-Wall",
+            "-D_FORTIFY_SOURCE=2",
+            "-g",
+            "-Wno-pointer-sign",
+            "-DVERSION=1",
+            "-Wno-variadic-macros",
+            "-o",
+            "function.so",
+            "callFunc.cpp"
+        ],
+        "directory": "/home/raihan/log_pass/addIfCondition",
+        "file": "callFunc.cpp"
+    }
+]
